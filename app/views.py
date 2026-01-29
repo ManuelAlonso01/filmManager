@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Movies
+from .tools import generar_resumen
 # Create your views here.
 
 
@@ -24,3 +25,6 @@ def subir(request):
         return redirect('index')
     return render (request, 'app/subir.html')
     
+def resumen(request):
+    data = generar_resumen()
+    return render(request, 'app/resumen.html', {'data': data})

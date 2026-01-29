@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'app/styles.css' %}">
+    <title>Resumen</title>
+</head>
+<body>
+    {% if data %}
+        <h3>Peliculas vistas: {{ data.peliculas_vistas }} </h3>
+        <h3>Tiempo invertido: {{ data.tiempo_invertido }}</h3>
+        <h3>Nota media: {{ data.nota_media }}</h3>
+        <h3>Pelicula mas larga: {{ data.pelicula_mas_larga }}</h3>
+        <h3>Pelicula mas corta: {{ data.pelicula_mas_corta }}</h3>
+        <h3>Top 3 mejores peliculas: {{ data.top_mejores }}</h3>
+        <h3>Top 3 peores peliculas: {{ data.top_peores }}</h3>
+    {% else %}
+        <h3>No hay informacion :(</h3>
+    {% endif %} 
+</body>
+</html>

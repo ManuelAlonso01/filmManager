@@ -8,8 +8,16 @@
     <link rel="stylesheet" href="{% static 'app/styles.css' %}">
     <title>Listar Peliculas</title>
 </head>
-<body>
-    <body class="index-page"> <a href="subir/" class="btn-subir-container"> <button>Subir</button>
+
+<body class="index-page">
+    <div class="actions-bar">
+        <a href="subir/">
+            <button>Subir</button>
+        </a>
+        <a href="resumen/">
+            <button>Resumen</button>
+        </a>
+    </div>
     {% if movies %}
     <div class="movies">
         {% for movie in movies %}

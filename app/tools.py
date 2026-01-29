@@ -5,12 +5,33 @@ def minutos_a_tiempo(minutos):
     dias = minutos // 1440
     horas = (minutos % 1440) // 60
     minutos_restantes = minutos % 60
+
+    partes = []
+
+    if dias > 0:
+        partes.append(f"{dias} día" if dias == 1 else f"{dias} días")
+
+    if horas > 0:
+        partes.append(f"{horas} hora" if horas == 1 else f"{horas} horas")
+
     if minutos_restantes > 0:
-        if horas > 0:
-            if dias > 0:
-                return f'{dias} dias, {horas} horas y {minutos_restantes} minutos'
-            return f'{horas} horas y {minutos_restantes} minutos'
-        return f'{minutos_restantes} minutos'
+        partes.append(
+            f"{minutos_restantes} minuto"
+            if minutos_restantes == 1
+            else f"{minutos_restantes} minutos"
+        )
+
+    if not partes:
+        return "0 minutos"
+
+    if len(partes) == 1:
+        return partes[0]
+
+    if len(partes) == 2:
+        return f"{partes[0]} y {partes[1]}"
+
+    return f"{', '.join(partes[:-1])} y {partes[-1]}"
+    
 
 def generar_resumen():
     peliculas_vistas = Movies.objects.count()

@@ -32,7 +32,7 @@ def editar(request, id_pelicula):
         movie.poster = request.POST.get('img')
         movie.duration = request.POST.get('duration')
         movie.descripcion = request.POST.get('descripcion')
-        movie.nota = request.POST.get('nota')
+        movie.calificacion = request.POST.get('nota')
         movie.save()
         return redirect('index')
     return render (request, 'app/editar.html', {'pelicula': movie})

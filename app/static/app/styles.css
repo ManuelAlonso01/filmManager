@@ -152,7 +152,7 @@ h2, h3 {
     padding: 0 1rem;
     margin-bottom: 1rem;
     display: -webkit-box;
-    -webkit-line-clamp: 8; /* Solo muestra 3 líneas de descripción */
+    -webkit-line-clamp: 10; /* Solo muestra 10 líneas de descripción */
     -webkit-box-orient: vertical;
     overflow: hidden;
     flex-grow: 1; /* Empuja el footer de la carta hacia abajo */

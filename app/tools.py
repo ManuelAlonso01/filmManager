@@ -45,8 +45,8 @@ def generar_resumen():
         'peliculas_vistas': peliculas_vistas,
         'tiempo_invertido': minutos_a_tiempo(tiempo_invertido),
         'nota_media': round(nota_media, 2),
-        'pelicula_mas_larga': pelicula_mas_larga.title,
-        'pelicula_mas_corta': pelicula_mas_corta.title,
+        'pelicula_mas_larga': f"{pelicula_mas_larga.title}, {minutos_a_tiempo(pelicula_mas_larga.duration_minutes)}",
+        'pelicula_mas_corta': f"{pelicula_mas_corta.title}, {minutos_a_tiempo(pelicula_mas_corta.duration_minutes)}",
         'top_mejores': f"{top_mejores[0].title}, {top_mejores[1].title}, {top_mejores[2].title}",
         'top_peores': f"{top_peores[0].title}, {top_peores[1].title}, {top_peores[2].title}",
     }

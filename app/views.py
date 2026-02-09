@@ -30,7 +30,7 @@ def editar(request, id_pelicula):
     if request.method == 'POST':
         movie.title = request.POST.get('titulo')
         movie.poster = request.POST.get('img')
-        movie.duration = request.POST.get('duration')
+        movie.duration_minutes = request.POST.get('duration')
         movie.descripcion = request.POST.get('descripcion')
         movie.calificacion = request.POST.get('nota')
         movie.save()

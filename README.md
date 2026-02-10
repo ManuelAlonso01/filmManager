@@ -1,19 +1,26 @@
 # FilmManager
 
-[FilmManager.com](https://filmmanager.up.railway.app/)
+## 🌐 Demo en producción: [FilmManager.com](https://filmmanager.up.railway.app/)
 
-Este es un sistema de gestión de catálogos cinematográficos desarrollado con **Django**. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar) sobre una base de datos de películas y cuenta con una funcionalidad para generar resúmenes automáticos. La idea de esto es poder hacer que gestiones las peliculas que vas viendo en el año y ver tus estadisticas al finalizar el mismo.
+**FilmManager** es una aplicación web desarrollada en **Django** para gestionar un catálogo personal de películas vistas durante el año y obtener estadísticas y resúmenes a partir de esos datos.
 
-## Pagina Principal
-<p align="center">
-  <img src="capturas/captura1.png" width="600">
-</p>
+El objetivo del proyecto es practicar desarrollo backend realista, manejo de modelos, vistas, despliegue en producción y persistencia de datos.
+
+Permite llevar un registro centralizado de las películas que vas viendo, con información relevante como duración, calificación y descripción, y luego generar un resumen general del contenido cargado.
+
+Ideal para cinéfilos obsesivos, personas que quieren estadísticas simples de consumo, o como base para escalar a algo más grande.
+
+## 🖼️ Capturas
+- ### Pagina Principal
+   <p align="center">
+      <img src="capturas/captura1.png" width="600">
+   </p>
 
 
-## Resumen
-<p align="center">
-  <img src="capturas/captura2.png" width="600">
-</p>
+- ### Resumen
+   <p align="center">
+      <img src="capturas/captura2.png" width="600">
+   </p>
 
 
 ## 🚀 Características
@@ -22,10 +29,11 @@ Este es un sistema de gestión de catálogos cinematográficos desarrollado con 
 * **Gestión de Contenido**: Formulario para subir nuevas películas incluyendo título, imagen de poster, duración, descripción y calificación.
 * **Edición**: Capacidad para modificar los datos de películas ya existentes mediante su identificador único.
 * **Resúmenes**: Integración de una herramienta para generar resúmenes de la información disponible.
+* **Usuarios**: Registro e inicio de sesión para que cada usuario gestione su propio catálogo de películas.
 
 ## 🛠️ Stack Tecnológico
 
-* **Framework**: Django 6.0.
+* **Framework**: Django.
 * **Base de Datos**: Soporte para SQLite (local) y PostgreSQL (configurado para producción vía `dj-database-url`).
 * **Servidor de Aplicaciones**: Gunicorn.
 * **Manejo de Estáticos**: WhiteNoise.

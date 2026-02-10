@@ -6,6 +6,7 @@
     {% load static %}
 
     <link rel="stylesheet" href="{% static 'app/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'app/image.png' %}">
     <title>Listar Peliculas</title>
 </head>
 
@@ -16,6 +17,9 @@
         </a>
         <a href="resumen/">
             <button>Resumen</button>
+        </a>
+        <a href="accounts/logout/">
+            <button>Logout</button>
         </a>
     </div>
     {% if movies %}

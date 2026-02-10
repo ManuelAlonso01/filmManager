@@ -33,21 +33,43 @@ def minutos_a_tiempo(minutos):
     return f"{', '.join(partes[:-1])} y {partes[-1]}"
     
 
-def generar_resumen():
-    peliculas_vistas = Movies.objects.count()
-    tiempo_invertido = Movies.objects.aggregate(Sum("duration_minutes"))['duration_minutes__sum']
-    nota_media = Movies.objects.aggregate(Avg('calificacion'))['calificacion__avg']
-    pelicula_mas_larga = Movies.objects.order_by("-duration_minutes").first()
-    pelicula_mas_corta = Movies.objects.order_by("duration_minutes").first()
-    top_mejores = Movies.objects.order_by("-calificacion")[:3]
-    top_peores = Movies.objects.order_by("calificacion")[:3]
+from django.db.models import Sum, Avg
+
+def generar_resumen(request):
+    qs = Movies.objects.filter(user=request.user)
+
+    peliculas_vistas = qs.count()
+
+    tiempo_invertido = qs.aggregate(
+        total=Sum("duration_minutes")
+    )["total"] or 0
+
+    nota_media = qs.aggregate(
+        avg=Avg("calificacion")
+    )["avg"] or 0
+
+    pelicula_mas_larga = qs.order_by("-duration_minutes").first()
+    pelicula_mas_corta = qs.order_by("duration_minutes").first()
+
+    top_mejores = qs.order_by("-calificacion")[:3]
+    top_peores = qs.order_by("calificacion")[:3]
+
     data = {
-        'peliculas_vistas': peliculas_vistas,
-        'tiempo_invertido': minutos_a_tiempo(tiempo_invertido),
-        'nota_media': round(nota_media, 2),
-        'pelicula_mas_larga': f"{pelicula_mas_larga.title}, {minutos_a_tiempo(pelicula_mas_larga.duration_minutes)}",
-        'pelicula_mas_corta': f"{pelicula_mas_corta.title}, {minutos_a_tiempo(pelicula_mas_corta.duration_minutes)}",
-        'top_mejores': f"{top_mejores[0].title}, {top_mejores[1].title}, {top_mejores[2].title}",
-        'top_peores': f"{top_peores[0].title}, {top_peores[1].title}, {top_peores[2].title}",
+        "peliculas_vistas": peliculas_vistas,
+        "tiempo_invertido": minutos_a_tiempo(tiempo_invertido),
+        "nota_media": round(nota_media, 2) if nota_media is not None else None,
+        "pelicula_mas_larga": (
+            f"{pelicula_mas_larga.title}, "
+            f"{minutos_a_tiempo(pelicula_mas_larga.duration_minutes)}"
+            if pelicula_mas_larga else 0
+        ),
+        "pelicula_mas_corta": (
+            f"{pelicula_mas_corta.title}, "
+            f"{minutos_a_tiempo(pelicula_mas_corta.duration_minutes)}"
+            if pelicula_mas_corta else 0
+        ),
+        "top_mejores": [m.title for m in top_mejores],
+        "top_peores": [m.title for m in top_peores],
     }
+
     return data

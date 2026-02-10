@@ -100,6 +100,26 @@ h2, h3 {
     color: var(--text-primary);
 }
 
+/* Estilos para el pie de los formularios */
+.form-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.form-footer a {
+    color: var(--accent); /* Dorado original */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease; /* Transición suave */
+}
+
+.form-footer a:hover {
+    color: var(--accent-hover); /* Dorado más claro al pasar el mouse */
+    text-decoration: underline; /* Opcional: subrayado para reforzar el feedback */
+}
+
 /* =========================================
    3. INDEX PAGE (Grid de Películas)
    ========================================= */

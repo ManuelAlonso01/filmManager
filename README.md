@@ -1,8 +1,20 @@
-# Proyecto Películas
+# FilmManager
 
-[FilmManager.com](https://wramovies.up.railway.app/)
+[FilmManager.com](https://filmmanager.up.railway.app/)
 
-Este es un sistema de gestión de catálogos cinematográficos desarrollado con **Django**. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar) sobre una base de datos de películas y cuenta con una funcionalidad para generar resúmenes automáticos.
+Este es un sistema de gestión de catálogos cinematográficos desarrollado con **Django**. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar) sobre una base de datos de películas y cuenta con una funcionalidad para generar resúmenes automáticos. La idea de esto es poder hacer que gestiones las peliculas que vas viendo en el año y ver tus estadisticas al finalizar el mismo.
+
+## Pagina Principal
+<p align="center">
+  <img src="capturas/captura1.png" width="400">
+</p>
+
+
+## Resumen
+<p align="center">
+  <img src="capturas/captura2.png" width="400">
+</p>
+
 
 ## 🚀 Características
 

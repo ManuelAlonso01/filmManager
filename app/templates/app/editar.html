@@ -15,9 +15,9 @@
             {% csrf_token %}
             <input type="text" name="titulo" placeholder="titulo" value="{{ pelicula.title }}" required>
             <input type="text" name="img" placeholder="url img" value="{{ pelicula.poster }}" required>
-            <input type="number" name="duration" placeholder="duracion en minutos" value="{{ pelicula.duration_minutes }}" required>
+            <input type="number" name="duration" min="1" placeholder="duracion en minutos" value="{{ pelicula.duration_minutes }}" required>
             <input type="text" name="descripcion" placeholder="descripcion" value="{{ pelicula.descripcion }}">
-            <input type="number" name="nota" placeholder="nota" value="{{ pelicula.calificacion }}"required>
+            <input type="number" name="nota" min="1" max="10" placeholder="nota" value="{{ pelicula.calificacion }}"required>
             <button type="submit">Editar</button>
         </form>
     </div>

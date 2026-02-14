@@ -15,9 +15,9 @@
             {% csrf_token %}
             <input type="text" name="titulo" placeholder="titulo" required>
             <input type="text" name="img" placeholder="url img" required>
-            <input type="number" name="duration" placeholder="duracion en minutos" required>
+            <input type="number" name="duration" min="1" placeholder="duracion en minutos" required>
             <input type="text" name="descripcion" placeholder="descripcion">
-            <input type="number" name="nota" placeholder="nota" required>
+            <input type="number" name="nota" min="1" max="10" placeholder="nota" required>
             <button type="submit">Subir</button>
         </form>
     </div>

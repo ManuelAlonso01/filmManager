@@ -9,17 +9,46 @@
     <link rel="icon" type="image/png" href="{% static 'app/image.png' %}">
     <title>Resumen</title>
 </head>
-<body>
-    {% if data %}
-        <h3>Peliculas vistas: {{ data.peliculas_vistas }} </h3>
-        <h3>Tiempo invertido: {{ data.tiempo_invertido }}</h3>
-        <h3>Nota media: {{ data.nota_media }}</h3>
-        <h3>Pelicula mas larga: {{ data.pelicula_mas_larga }}</h3>
-        <h3>Pelicula mas corta: {{ data.pelicula_mas_corta }}</h3>
-        <h3>Top 3 mejores peliculas: {{ data.top_mejores }}</h3>
-        <h3>Top 3 peores peliculas: {{ data.top_peores }}</h3>
-    {% else %}
-        <h3>No hay informacion :(</h3>
-    {% endif %} 
+<body class="resumen-page">
+    <div class="dashboard-container">
+        <h2>Estadísticas de tu Colección</h2>
+        
+        {% if data %}
+            <section class="stat-group">
+                <h3>Resumen General</h3>
+                <div class="stat-card"><span>Películas/Series vistas</span> <strong>{{ data.peliculas_vistas }}</strong></div>
+                <div class="stat-card"><span>Nota media global</span> <strong>{{ data.nota_media_global }}</strong></div>
+                <div class="stat-card"><span>Tiempo total invertido</span> <strong>{{ data.tiempo_invertido_total }}</strong></div>
+            </section>
+
+            <section class="stat-group">
+                <h3>Sección Películas</h3>
+                <div class="stat-card"><span>Tiempo en películas</span> <strong>{{ data.tiempo_invertido_peliculas }}</strong></div>
+                <div class="stat-card"><span>Nota media en películas</span> <strong>{{ data.nota_media_peliculas }}</strong></div>
+                <div class="stat-card"><span>Película más larga</span> <strong>{{ data.pelicula_mas_larga }}</strong></div>
+                <div class="stat-card"><span>Película más corta</span> <strong>{{ data.pelicula_mas_corta }}</strong></div>
+                <div class="stat-card"><span>Top 3 mejores</span> <strong>{{ data.top_mejores_peliculas }}</strong></div>
+                <div class="stat-card"><span>Top 3 peores</span> <strong>{{ data.top_peores_peliculas }}</strong></div>
+            </section>
+
+            <section class="stat-group">
+                <h3>Sección Series</h3>
+                <div class="stat-card"><span>Tiempo en series</span> <strong>{{ data.tiempo_invertido_series }}</strong></div>
+                <div class="stat-card"><span>Nota media en series</span> <strong>{{ data.nota_media_series }}</strong></div>
+                <div class="stat-card"><span>Serie más larga</span> <strong>{{ data.serie_mas_larga }}</strong></div>
+                <div class="stat-card"><span>Serie más corta</span> <strong>{{ data.serie_mas_corta }}</strong></div>
+                <div class="stat-card"><span>Top 3 mejores</span> <strong>{{ data.top_mejores_series }}</strong></div>
+                <div class="stat-card"><span>Top 3 peores</span> <strong>{{ data.top_peores_series }}</strong></div>
+            </section>
+        {% else %}
+            <div class="no-data">
+                <h3>No hay información :(</h3>
+            </div>
+        {% endif %}
+        
+        <div class="form-footer">
+            <a href="{% url 'index' %}">← Volver al inicio</a>
+        </div>
+    </div>
 </body>
 </html>

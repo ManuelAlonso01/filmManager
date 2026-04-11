@@ -255,28 +255,35 @@ input::placeholder {
 /* Aunque el HTML de resumen es simple (h3s sueltos),
    usamos selectores para darle estructura visual */
 
-body:not(.index-page):not(.form-page) {
-    /* Asumiendo que esta página no tiene clase específica en body,
-       centramos el contenido para que parezca un reporte */
-    align-items: center;
-    justify-content: center;
+.dashboard-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-/* Envolvemos conceptualmente los h3 si no hay div contenedor,
-   o estilizamos directamente el body de esta página */
-body:not(.index-page):not(.form-page) h3 {
-    background-color: var(--bg-card);
-    width: 100%;
-    max-width: 600px;
-    padding: 1.5rem;
+.stat-group {
+    margin-bottom: 2rem;
+}
+
+.stat-group h3 {
+    color: var(--accent);
     margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(210, 161, 94, 0.2);
+}
+
+.stat-card {
+    background-color: var(--bg-card);
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.5rem;
     border-radius: var(--radius);
-    border-left: 4px solid var(--accent);
-    font-weight: 400;
-    font-size: 1.1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Ahora sí funciona */
+    border-left: 4px solid var(--accent);
     box-shadow: var(--shadow);
+}
+
+.stat-card strong {
+    color: var(--accent);
 }
 
 /* Hack visual para resaltar la etiqueta del valor (separando por ":") 
@@ -286,4 +293,68 @@ body:not(.index-page):not(.form-page) h3 {
 /* Estilo para mensajes de "No hay información" */
 h2, h3:last-child {
     text-align: center;
+}
+
+
+/* =========================================
+   6. CUSTOM CHECKBOX (Mejora visual)
+   ========================================= */
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    background-color: var(--bg-input);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+.checkbox-group:hover {
+    border-color: rgba(210, 161, 94, 0.3);
+}
+
+.checkbox-group label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Estilizando el input real */
+input[type="checkbox"] {
+    appearance: none; /* Eliminamos el estilo feo de Windows/Linux */
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background-color: var(--bg-body);
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    margin: 0;
+}
+
+/* Estado cuando está marcado */
+input[type="checkbox"]:checked {
+    background-color: var(--accent);
+}
+
+/* El "check" (la tildita) */
+input[type="checkbox"]:checked::after {
+    content: '✔';
+    position: absolute;
+    color: var(--bg-body);
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 2px rgba(210, 161, 94, 0.2);
+    outline: none;
 }

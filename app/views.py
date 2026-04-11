@@ -19,6 +19,7 @@ def subir(request):
         duration = request.POST.get('duration')
         descripcion = request.POST.get('descripcion')
         nota = request.POST.get('nota')
+        is_serie = request.POST.get('is_serie') == 'on'
 
         Movies.objects.create(
             user=user,
@@ -27,6 +28,7 @@ def subir(request):
             duration_minutes=duration,
             descripcion=descripcion,
             calificacion=nota,
+            is_serie=is_serie
         )
         return redirect('index')
 
@@ -46,6 +48,7 @@ def editar(request, id_pelicula):
         movie.duration_minutes = request.POST.get('duration')
         movie.descripcion = request.POST.get('descripcion')
         movie.calificacion = request.POST.get('nota')
+        movie.is_serie = request.POST.get('is_serie') == 'on'
         movie.save()
         return redirect('index')
     return render (request, 'app/editar.html', {'pelicula': movie})

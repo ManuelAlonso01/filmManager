@@ -38,26 +38,55 @@ from django.db.models import Sum, Avg
 def generar_resumen(request):
     qs = Movies.objects.filter(user=request.user)
 
-    peliculas_vistas = qs.count()
+    peliculas_vistas = qs.filter(is_serie=False).count()
+    series_vistas = qs.filter(is_serie=True).count()
 
-    tiempo_invertido = qs.aggregate(
+    tiempo_invertido_total = qs.aggregate(
         total=Sum("duration_minutes")
     )["total"] or 0
 
-    nota_media = qs.aggregate(
+    tiempo_invertido_peliculas = qs.filter(is_serie=False).aggregate(
+        total=Sum("duration_minutes")
+    )["total"] or 0
+    
+    tiempo_invertido_series = qs.filter(is_serie=True).aggregate(
+        total=Sum("duration_minutes")
+    )["total"] or 0
+    
+    nota_media_global = qs.aggregate(
+        avg=Avg("calificacion")
+    )["avg"] or 0
+    
+    nota_media_peliculas = qs.filter(is_serie=False).aggregate(
+        avg=Avg("calificacion")
+    )["avg"] or 0
+    
+    nota_media_series = qs.filter(is_serie=True).aggregate(
         avg=Avg("calificacion")
     )["avg"] or 0
 
-    pelicula_mas_larga = qs.order_by("-duration_minutes").first()
-    pelicula_mas_corta = qs.order_by("duration_minutes").first()
+    pelicula_mas_larga = qs.filter(is_serie=False).order_by("-duration_minutes").first()
+    pelicula_mas_corta = qs.filter(is_serie=False).order_by("duration_minutes").first()
+    
+    serie_mas_larga = qs.filter(is_serie=True).order_by("-duration_minutes").first()
+    serie_mas_corta = qs.filter(is_serie=True).order_by("duration_minutes").first()
 
-    top_mejores = qs.order_by("-calificacion")[:3]
-    top_peores = qs.order_by("calificacion")[:3]
+    top_mejores_peliculas = qs.filter(is_serie=False).order_by("-calificacion")[:3]
+    top_peores_peliculas = qs.filter(is_serie=False).order_by("calificacion")[:3]
+
+    top_mejores_series = qs.filter(is_serie=True).order_by("-calificacion")[:3]
+    top_peores_series = qs.filter(is_serie=True).order_by("calificacion")[:3]
 
     data = {
+        
         "peliculas_vistas": peliculas_vistas,
-        "tiempo_invertido": minutos_a_tiempo(tiempo_invertido),
-        "nota_media": round(nota_media, 2) if nota_media is not None else None,
+        "series_vistas": series_vistas,
+        "tiempo_invertido_total": minutos_a_tiempo(tiempo_invertido_total),
+        "tiempo_invertido_peliculas": minutos_a_tiempo(tiempo_invertido_peliculas),
+        "tiempo_invertido_series": minutos_a_tiempo(tiempo_invertido_series),
+        "nota_media_global": round(nota_media_global, 2) if nota_media_global is not None else None,
+        "nota_media_peliculas": round(nota_media_peliculas, 2) if nota_media_peliculas is not None else None,
+        "nota_media_series": round(nota_media_series, 2) if nota_media_series is not None else None,
         "pelicula_mas_larga": (
             f"{pelicula_mas_larga.title}, "
             f"{minutos_a_tiempo(pelicula_mas_larga.duration_minutes)}"
@@ -68,8 +97,20 @@ def generar_resumen(request):
             f"{minutos_a_tiempo(pelicula_mas_corta.duration_minutes)}"
             if pelicula_mas_corta else 0
         ),
-        "top_mejores": ', '.join([m.title for m in top_mejores]),
-        "top_peores": ', '.join([m.title for m in top_peores]),
+        "serie_mas_larga": (
+            f"{serie_mas_larga.title}, "
+            f"{minutos_a_tiempo(serie_mas_larga.duration_minutes)}"
+            if serie_mas_larga else 0
+        ),
+        "serie_mas_corta": (
+            f"{serie_mas_corta.title}, "
+            f"{minutos_a_tiempo(serie_mas_corta.duration_minutes)}"
+            if serie_mas_corta else 0
+        ),
+        "top_mejores_peliculas": ', '.join([m.title for m in top_mejores_peliculas]),
+        "top_peores_peliculas": ', '.join([m.title for m in top_peores_peliculas]),
+        "top_mejores_series": ', '.join([m.title for m in top_mejores_series]),
+        "top_peores_series": ', '.join([m.title for m in top_peores_series]),
     }
 
     return data

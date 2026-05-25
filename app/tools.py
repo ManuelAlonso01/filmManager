@@ -33,8 +33,6 @@ def minutos_a_tiempo(minutos):
     return f"{', '.join(partes[:-1])} y {partes[-1]}"
     
 
-from django.db.models import Sum, Avg
-
 def generar_resumen(request):
     qs = Movies.objects.filter(user=request.user)
 
@@ -79,6 +77,7 @@ def generar_resumen(request):
 
     data = {
         
+        "peliculas_series_vistas": peliculas_vistas + series_vistas,
         "peliculas_vistas": peliculas_vistas,
         "series_vistas": series_vistas,
         "tiempo_invertido_total": minutos_a_tiempo(tiempo_invertido_total),

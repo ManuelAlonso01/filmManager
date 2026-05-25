@@ -16,13 +16,14 @@
         {% if data %}
             <section class="stat-group">
                 <h3>Resumen General</h3>
-                <div class="stat-card"><span>Películas/Series vistas</span> <strong>{{ data.peliculas_vistas }}</strong></div>
+                <div class="stat-card"><span>Películas/Series vistas</span> <strong>{{ data.peliculas_series_vistas }}</strong></div>
                 <div class="stat-card"><span>Nota media global</span> <strong>{{ data.nota_media_global }}</strong></div>
                 <div class="stat-card"><span>Tiempo total invertido</span> <strong>{{ data.tiempo_invertido_total }}</strong></div>
             </section>
 
             <section class="stat-group">
                 <h3>Sección Películas</h3>
+                <div class="stat-card"><span>Peliculas vistas</span> <strong>{{ data.peliculas_vistas }}</strong></div>
                 <div class="stat-card"><span>Tiempo en películas</span> <strong>{{ data.tiempo_invertido_peliculas }}</strong></div>
                 <div class="stat-card"><span>Nota media en películas</span> <strong>{{ data.nota_media_peliculas }}</strong></div>
                 <div class="stat-card"><span>Película más larga</span> <strong>{{ data.pelicula_mas_larga }}</strong></div>
@@ -33,6 +34,7 @@
 
             <section class="stat-group">
                 <h3>Sección Series</h3>
+                <div class="stat-card"><span>Series vistas</span> <strong>{{ data.series_vistas }}</strong></div>
                 <div class="stat-card"><span>Tiempo en series</span> <strong>{{ data.tiempo_invertido_series }}</strong></div>
                 <div class="stat-card"><span>Nota media en series</span> <strong>{{ data.nota_media_series }}</strong></div>
                 <div class="stat-card"><span>Serie más larga</span> <strong>{{ data.serie_mas_larga }}</strong></div>

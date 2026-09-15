@@ -7,8 +7,17 @@ from django.contrib.auth.decorators import login_required
 import datetime
 @login_required
 def index(request):
+    selected_year = _selected_year(request)
     movies = request.user.movies.all()
-    return render(request, 'app/index.html', {"movies": movies})
+    if selected_year is not None:
+        movies = movies.filter(year=selected_year)
+
+    years = request.user.movies.values_list('year', flat=True).distinct().order_by('-year')
+    return render(request, 'app/index.html', {
+        "movies": movies,
+        "years": years,
+        "selected_year": selected_year,
+    })
 
 @login_required
 def subir(request):
@@ -20,7 +29,7 @@ def subir(request):
         descripcion = request.POST.get('descripcion')
         nota = request.POST.get('nota')
         is_serie = request.POST.get('is_serie') == 'on'
-        year = datetime.date.today().year  # Get the current year
+        year = datetime.date.today().year
         Movies.objects.create(
             user=user,
             title=titulo,
@@ -50,6 +59,7 @@ def editar(request, id_pelicula):
         movie.descripcion = request.POST.get('descripcion')
         movie.calificacion = request.POST.get('nota')
         movie.is_serie = request.POST.get('is_serie') == 'on'
+        movie.year = request.POST.get('year')
         movie.save()
         return redirect('index')
     return render (request, 'app/editar.html', {'pelicula': movie})
@@ -57,7 +67,20 @@ def editar(request, id_pelicula):
 @login_required    
 def resumen(request):
     data = generar_resumen(request)
-    return render(request, 'app/resumen.html', {'data': data})
+    years = request.user.movies.values_list('year', flat=True).distinct().order_by('-year')
+    return render(request, 'app/resumen.html', {
+        'data': data,
+        'years': years,
+        'selected_year': _selected_year(request),
+    })
+
+
+def _selected_year(request):
+    year = request.GET.get('year')
+    try:
+        return int(year) if year else None
+    except (TypeError, ValueError):
+        return None
 
 
 def iniciar_sesion(request):

@@ -12,10 +12,24 @@
 <body class="resumen-page">
     <div class="dashboard-container">
         <h2>Estadísticas de tu Colección</h2>
+
+        <details class="year-filter">
+            <summary>
+                <span>Año visto</span>
+                <span class="year-filter-value">{% if selected_year %}{{ selected_year }}{% else %}Todos{% endif %}</span>
+                <span class="year-filter-chevron">⌄</span>
+            </summary>
+            <div class="year-menu">
+                <a href="{% url 'resumen' %}" class="year-option {% if not selected_year %}active{% endif %}">Todos los años</a>
+                {% for year in years %}
+                    <a href="{% url 'resumen' %}?year={{ year }}" class="year-option {% if selected_year == year %}active{% endif %}">{{ year }}</a>
+                {% endfor %}
+            </div>
+        </details>
         
         {% if data %}
             <section class="stat-group">
-                <h3>Resumen General</h3>
+                <h3>Resumen {% if selected_year %}{{ selected_year }}{% else %}General{% endif %}</h3>
                 <div class="stat-card"><span>Películas/Series vistas</span> <strong>{{ data.peliculas_series_vistas }}</strong></div>
                 <div class="stat-card"><span>Nota media global</span> <strong>{{ data.nota_media_global }}</strong></div>
                 <div class="stat-card"><span>Tiempo total invertido</span> <strong>{{ data.tiempo_invertido_total }}</strong></div>

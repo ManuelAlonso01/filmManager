@@ -35,6 +35,12 @@ def minutos_a_tiempo(minutos):
 
 def generar_resumen(request):
     qs = Movies.objects.filter(user=request.user)
+    year = request.GET.get('year')
+    try:
+        if year:
+            qs = qs.filter(year=int(year))
+    except (TypeError, ValueError):
+        pass
 
     peliculas_vistas = qs.filter(is_serie=False).count()
     series_vistas = qs.filter(is_serie=True).count()

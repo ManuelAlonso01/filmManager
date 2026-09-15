@@ -12,6 +12,19 @@
 
 <body class="index-page">
     <div class="actions-bar">
+        <details class="year-filter">
+            <summary>
+                <span>Año visto</span>
+                <span class="year-filter-value">{% if selected_year %}{{ selected_year }}{% else %}Todos{% endif %}</span>
+                <span class="year-filter-chevron">⌄</span>
+            </summary>
+            <div class="year-menu">
+                <a href="{% url 'index' %}" class="year-option {% if not selected_year %}active{% endif %}">Todos los años</a>
+                {% for year in years %}
+                    <a href="{% url 'index' %}?year={{ year }}" class="year-option {% if selected_year == year %}active{% endif %}">{{ year }}</a>
+                {% endfor %}
+            </div>
+        </details>
         <a href="subir/">
             <button>Subir</button>
         </a>

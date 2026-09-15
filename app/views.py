@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .tools import generar_resumen
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+import datetime
 @login_required
 def index(request):
     movies = request.user.movies.all()
@@ -20,7 +20,7 @@ def subir(request):
         descripcion = request.POST.get('descripcion')
         nota = request.POST.get('nota')
         is_serie = request.POST.get('is_serie') == 'on'
-
+        year = datetime.date.today().year  # Get the current year
         Movies.objects.create(
             user=user,
             title=titulo,
@@ -28,7 +28,8 @@ def subir(request):
             duration_minutes=duration,
             descripcion=descripcion,
             calificacion=nota,
-            is_serie=is_serie
+            is_serie=is_serie,
+            year=year
         )
         return redirect('index')
 

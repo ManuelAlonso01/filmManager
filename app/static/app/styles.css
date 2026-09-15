@@ -8,6 +8,10 @@
     --bg-body: #0f1115;       /* Oscuro profundo, casi negro */
     --bg-card: #161b22;       /* Un poco más claro para elevar */
     --bg-input: #0d1117;
+    --glass-surface: rgba(31, 37, 48, 0.58);
+    --glass-surface-strong: rgba(22, 27, 34, 0.76);
+    --glass-border: rgba(255, 255, 255, 0.13);
+    --glass-highlight: rgba(255, 255, 255, 0.12);
     
     /* Textos */
     --text-primary: #e6edf3;  /* Blanco suave */
@@ -20,7 +24,8 @@
     
     /* Espaciado y Bordes */
     --radius: 12px;
-    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+    --glass-blur: blur(22px) saturate(135%);
     --font-main: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -33,6 +38,11 @@
 body {
     font-family: var(--font-main);
     background-color: var(--bg-body);
+    background-image:
+        radial-gradient(circle at 8% 0%, rgba(210, 161, 94, 0.13), transparent 30%),
+        radial-gradient(circle at 92% 82%, rgba(95, 127, 156, 0.12), transparent 34%),
+        linear-gradient(135deg, #0f1115 0%, #131820 52%, #0c0f13 100%);
+    background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -53,8 +63,8 @@ a {
 
 /* Botones con estilo moderno y sutil */
 button {
-    background-color: transparent;
-    border: 1px solid var(--accent);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(210, 161, 94, 0.7);
     color: var(--accent);
     padding: 0.75rem 1.5rem;
     font-size: 0.9rem;
@@ -63,6 +73,9 @@ button {
     letter-spacing: 1px;
     border-radius: var(--radius);
     cursor: pointer;
+    box-shadow: inset 0 1px 0 var(--glass-highlight), 0 8px 22px rgba(0, 0, 0, 0.18);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     transition: all 0.3s ease;
 }
 
@@ -75,7 +88,7 @@ button:hover {
 
 /* Botón "Primary" sólido (para formularios) */
 button[type="submit"] {
-    background-color: var(--accent);
+    background: linear-gradient(135deg, var(--accent-hover), var(--accent));
     color: var(--bg-body);
     width: 100%;
     margin-top: 1rem;
@@ -100,10 +113,12 @@ button[type="submit"]:hover {
     position: relative;
     z-index: 5;
     min-height: 48px;
-    background: linear-gradient(135deg, rgba(210, 161, 94, 0.14), rgba(22, 27, 34, 0.9));
-    border: 1px solid rgba(210, 161, 94, 0.35);
-    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(210, 161, 94, 0.2), rgba(31, 37, 48, 0.58));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .year-filter[open] {
@@ -156,10 +171,12 @@ button[type="submit"]:hover {
     right: 0;
     min-width: 100%;
     padding: 0.4rem;
-    background-color: var(--bg-card);
-    border: 1px solid rgba(210, 161, 94, 0.45);
+    background: linear-gradient(145deg, rgba(38, 45, 57, 0.99), rgba(15, 18, 23, 0.95));
+    border: 1px solid var(--glass-border);
     border-radius: 10px;
     box-shadow: 0 16px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     animation: year-menu-in 0.18s ease-out;
 }
 
@@ -238,14 +255,18 @@ h2, h3 {
 }
 
 .movie-card {
-    background-color: var(--bg-card);
-    border-radius: var(--radius);
+    position: relative;
+    background: linear-gradient(145deg, rgba(38, 45, 57, 0.7), rgba(18, 22, 28, 0.62));
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .movie-card:hover {
@@ -286,7 +307,8 @@ h2, h3 {
     display: block;
     padding: 1rem;
     margin-top: auto;
-    background-color: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.24));
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--accent);
@@ -319,11 +341,14 @@ h2, h3 {
 .datos {
     width: 100%;
     max-width: 450px;
-    background-color: var(--bg-card);
+    background: linear-gradient(145deg, rgba(38, 45, 57, 0.74), rgba(18, 22, 28, 0.68));
     padding: 2.5rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
 }
 
 form {
@@ -335,8 +360,8 @@ form {
 input {
     width: 100%;
     padding: 1rem;
-    background-color: var(--bg-input);
-    border: 1px solid transparent;
+    background: rgba(8, 11, 15, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     color: var(--text-primary);
     font-size: 1rem;
@@ -415,14 +440,17 @@ input::placeholder {
 }
 
 .stat-card {
-    background-color: var(--bg-card);
+    background: linear-gradient(145deg, rgba(38, 45, 57, 0.64), rgba(18, 22, 28, 0.56));
     padding: 1rem 1.5rem;
     margin-bottom: 0.5rem;
     border-radius: var(--radius);
     display: flex;
     justify-content: space-between; /* Ahora sí funciona */
+    border: 1px solid var(--glass-border);
     border-left: 4px solid var(--accent);
     box-shadow: var(--shadow);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .stat-card strong {

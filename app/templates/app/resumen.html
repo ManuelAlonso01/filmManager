@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,21 +11,32 @@
 </head>
 <body class="resumen-page">
     <div class="dashboard-container">
-        <h2>Estadísticas de tu Colección</h2>
-
-        <details class="year-filter summary-year-filter">
-            <summary>
-                <span>Año visto</span>
-                <span class="year-filter-value">{% if selected_year %}{{ selected_year }}{% else %}Todos{% endif %}</span>
-                <span class="year-filter-chevron">⌄</span>
-            </summary>
-            <div class="year-menu">
-                <a href="{% url 'resumen' %}" class="year-option {% if not selected_year %}active{% endif %}">Todos los años</a>
-                {% for year in years %}
-                    <a href="{% url 'resumen' %}?year={{ year }}" class="year-option {% if selected_year == year %}active{% endif %}">{{ year }}</a>
-                {% endfor %}
+        <div class="summary-topbar">
+            <a class="download-pdf" href="{% url 'resumen_pdf' %}{% if selected_year %}?year={{ selected_year }}{% endif %}">Descargar PDF</a>
+        </div>
+        <header class="summary-brand">
+            <span class="summary-brand-mark" aria-hidden="true">FM</span>
+            <div class="summary-brand-copy">
+                <p class="summary-brand-name">FilmManager</p>
+                <h1>Estadísticas de tu Colección</h1>
             </div>
-        </details>
+        </header>
+
+        <div class="summary-controls">
+            <details class="year-filter summary-year-filter">
+                <summary>
+                    <span>Año visto</span>
+                    <span class="year-filter-value">{% if selected_year %}{{ selected_year }}{% else %}Todos{% endif %}</span>
+                    <span class="year-filter-chevron">⌄</span>
+                </summary>
+                <div class="year-menu">
+                    <a href="{% url 'resumen' %}" class="year-option {% if not selected_year %}active{% endif %}">Todos los años</a>
+                    {% for year in years %}
+                        <a href="{% url 'resumen' %}?year={{ year }}" class="year-option {% if selected_year == year %}active{% endif %}">{{ year }}</a>
+                    {% endfor %}
+                </div>
+            </details>
+        </div>
         
         {% if data %}
             <section class="stat-group">

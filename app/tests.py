@@ -77,3 +77,26 @@ class YearFilterTests(TestCase):
 		self.assertContains(response, 'Resumen 2025')
 		self.assertContains(response, '<strong>1</strong>', html=True)
 		self.assertContains(response, '2 horas')
+
+	def test_summary_includes_pdf_export_branding(self):
+		response = self.client.get('/resumen/')
+
+		self.assertContains(response, 'Descargar PDF')
+		self.assertContains(response, 'FilmManager')
+		self.assertContains(response, 'summary-brand-mark')
+
+	def test_summary_pdf_download_uses_username_in_filename(self):
+		response = self.client.get('/resumen/pdf/')
+
+		self.assertEqual(response['Content-Type'], 'application/pdf')
+		self.assertIn('Estadisticas de la coleccion de cinefilo.pdf', response['Content-Disposition'])
+		self.assertTrue(response.content.startswith(b'%PDF-1.4'))
+		self.assertIn(b'46494C4D4D414E41474552', response.content)
+
+	def test_summary_pdf_download_respects_selected_year(self):
+		response = self.client.get('/resumen/pdf/', {'year': 2025})
+
+		self.assertEqual(response['Content-Type'], 'application/pdf')
+		self.assertIn(b'32303235', response.content)
+		self.assertIn(b'3220686F726173', response.content)
+		self.assertNotIn(b'3320686F726173', response.content)

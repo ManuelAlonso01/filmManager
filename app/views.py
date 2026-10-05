@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from .tools import generar_resumen
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.utils.http import content_disposition_header
 import datetime
+from .pdf_export import generar_pdf_resumen
 @login_required
 def index(request):
     selected_year = _selected_year(request)
@@ -88,6 +91,22 @@ def resumen(request):
         'years': years,
         'selected_year': _selected_year(request),
     })
+
+@login_required
+def resumen_pdf(request):
+    selected_year = _selected_year(request)
+    pdf = generar_pdf_resumen(
+        generar_resumen(request),
+        request.user.username,
+        selected_year,
+    )
+    response = HttpResponse(pdf, content_type='application/pdf')
+    filename = f'Estadisticas de la coleccion de {request.user.username}.pdf'
+    response['Content-Disposition'] = content_disposition_header(
+        as_attachment=True,
+        filename=filename,
+    )
+    return response
 
 
 def _selected_year(request):

@@ -38,7 +38,8 @@ def subir(request):
             descripcion=descripcion,
             calificacion=nota,
             is_serie=is_serie,
-            year=year
+            year=year,
+            favorite=request.POST.get('favorite') == 'on'
         )
         return redirect('index')
 
@@ -60,6 +61,7 @@ def editar(request, id_pelicula):
         movie.calificacion = request.POST.get('nota')
         movie.is_serie = request.POST.get('is_serie') == 'on'
         movie.year = request.POST.get('year')
+        movie.favorite = request.POST.get('favorite') == 'on'
         movie.save()
         return redirect('index')
     return render (request, 'app/editar.html', {'pelicula': movie})

@@ -25,6 +25,7 @@ class Movies(models.Model):
     )
     is_serie = models.BooleanField(default=False)
     year = models.IntegerField()
+    favorite = models.BooleanField(default=False)
     
     def __str__(self):
         return self.title

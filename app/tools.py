@@ -81,8 +81,9 @@ def generar_resumen(request):
     top_mejores_series = qs.filter(is_serie=True).order_by("-calificacion")[:3]
     top_peores_series = qs.filter(is_serie=True).order_by("calificacion")[:3]
 
+    favoritas = ', '.join([movie.title for movie in qs.filter(favorite=True)])
+
     data = {
-        
         "peliculas_series_vistas": peliculas_vistas + series_vistas,
         "peliculas_vistas": peliculas_vistas,
         "series_vistas": series_vistas,
@@ -116,6 +117,7 @@ def generar_resumen(request):
         "top_peores_peliculas": ', '.join([m.title for m in top_peores_peliculas]),
         "top_mejores_series": ', '.join([m.title for m in top_mejores_series]),
         "top_peores_series": ', '.join([m.title for m in top_peores_series]),
+        "favoritas": favoritas,
     }
 
     return data

@@ -23,6 +23,10 @@
                 <label for="is_serie">¿Es una serie?</label>
                 <input type="checkbox" name="is_serie" id="is_serie" {% if pelicula.is_serie %}checked{% endif %}>
             </div>
+            <div class="checkbox-group">
+                <label for="favorite">¿Favorita?</label>
+                <input type="checkbox" name="favorite" id="favorite" {% if pelicula.favorite %}checked{% endif %}>
+            </div>
             <button type="submit">Editar</button>
         </form>
     </div>

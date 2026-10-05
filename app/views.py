@@ -8,15 +8,28 @@ import datetime
 @login_required
 def index(request):
     selected_year = _selected_year(request)
+    selected_rating_order = request.GET.get('rating_order', '')
+    if selected_rating_order not in ('desc', 'asc'):
+        selected_rating_order = ''
+    favorites_only = request.GET.get('favorites') == 'on'
+
     movies = request.user.movies.all()
     if selected_year is not None:
         movies = movies.filter(year=selected_year)
+    if favorites_only:
+        movies = movies.filter(favorite=True)
+    if selected_rating_order == 'desc':
+        movies = movies.order_by('-calificacion', 'pk')
+    elif selected_rating_order == 'asc':
+        movies = movies.order_by('calificacion', 'pk')
 
     years = request.user.movies.values_list('year', flat=True).distinct().order_by('-year')
     return render(request, 'app/index.html', {
         "movies": movies,
         "years": years,
         "selected_year": selected_year,
+        "selected_rating_order": selected_rating_order,
+        "favorites_only": favorites_only,
     })
 
 @login_required

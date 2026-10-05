@@ -14,15 +14,39 @@
     <div class="actions-bar">
         <details class="year-filter">
             <summary>
-                <span>Año visto</span>
-                <span class="year-filter-value">{% if selected_year %}{{ selected_year }}{% else %}Todos{% endif %}</span>
+                <span>Filtrar</span>
+                <span class="year-filter-value">
+                    {% if selected_year %}{{ selected_year }}{% else %}Todos{% endif %}
+                    {% if selected_rating_order or favorites_only %} · Activos{% endif %}
+                </span>
                 <span class="year-filter-chevron">⌄</span>
             </summary>
             <div class="year-menu">
-                <a href="{% url 'index' %}" class="year-option {% if not selected_year %}active{% endif %}">Todos los años</a>
-                {% for year in years %}
-                    <a href="{% url 'index' %}?year={{ year }}" class="year-option {% if selected_year == year %}active{% endif %}">{{ year }}</a>
-                {% endfor %}
+                <form method="get" class="index-filter-form">
+                    <label class="index-filter-field">
+                        <span>Año visto</span>
+                        <select name="year">
+                            <option value="">Todos los años</option>
+                            {% for year in years %}
+                                <option value="{{ year }}" {% if selected_year == year %}selected{% endif %}>{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label class="index-filter-field">
+                        <span>Calificación</span>
+                        <select name="rating_order">
+                            <option value="" {% if not selected_rating_order %}selected{% endif %}>Sin ordenar</option>
+                            <option value="desc" {% if selected_rating_order == 'desc' %}selected{% endif %}>Mejor a peor</option>
+                            <option value="asc" {% if selected_rating_order == 'asc' %}selected{% endif %}>Peor a mejor</option>
+                        </select>
+                    </label>
+                    <label class="index-favorite-option">
+                        <input type="checkbox" name="favorites" value="on" {% if favorites_only %}checked{% endif %}>
+                        <span>Solo favoritas</span>
+                    </label>
+                    <button type="submit">Aplicar filtros</button>
+                    <a href="{% url 'index' %}" class="clear-filters">Limpiar filtros</a>
+                </form>
             </div>
         </details>
         <a href="subir/">

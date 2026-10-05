@@ -169,14 +169,13 @@ button[type="submit"]:hover {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
-    min-width: 100%;
+    width: 280px;
+    max-width: calc(100vw - 2rem);
     padding: 0.4rem;
-    background: linear-gradient(145deg, rgba(38, 45, 57, 0.99), rgba(15, 18, 23, 0.95));
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    background: #161b22;
+    border: 1px solid rgba(210, 161, 94, 0.45);
+    border-radius: 12px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.75);
     animation: year-menu-in 0.18s ease-out;
 }
 
@@ -199,6 +198,74 @@ button[type="submit"]:hover {
     font-weight: 600;
 }
 
+.index-filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 0.5rem;
+}
+
+.index-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: var(--text-primary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.index-filter-field select {
+    width: 100%;
+    min-height: 42px;
+    padding: 0.55rem 0.7rem;
+    background: var(--bg-input);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.index-filter-field select:focus {
+    outline: 1px solid var(--accent);
+}
+
+.index-filter-field option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.index-favorite-option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.index-favorite-option input[type="checkbox"] {
+    flex: 0 0 22px;
+}
+
+.index-filter-form button {
+    width: 100%;
+    min-height: 42px;
+}
+
+.clear-filters {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.clear-filters:hover {
+    color: var(--accent-hover);
+}
+
 @keyframes year-menu-in {
     from {
         opacity: 0;
@@ -211,7 +278,7 @@ button[type="submit"]:hover {
 }
 
 .actions-bar > .year-filter {
-    margin-right: auto;
+    margin-left: auto;
 }
 
 /* Titulos Generales */
@@ -390,9 +457,15 @@ input::placeholder {
     margin: 0 auto;
 }
 
-.dashboard-container > .year-filter {
-    justify-content: flex-end;
-    margin: 1.5rem 0 2rem;
+.dashboard-container > .summary-year-filter {
+    display: table;
+    width: fit-content;
+    margin: 1.5rem auto 2rem;
+}
+
+.summary-year-filter .year-menu {
+    right: 0;
+    left: auto;
 }
 
 @media (max-width: 600px) {
@@ -423,9 +496,13 @@ input::placeholder {
     }
 
     .year-menu {
-        right: auto;
-        left: 0;
+        right: 0;
+        left: auto;
         width: 100%;
+    }
+
+    .actions-bar > .year-filter {
+        margin-left: 0;
     }
 }
 

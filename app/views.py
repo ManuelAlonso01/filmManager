@@ -95,13 +95,15 @@ def resumen(request):
 @login_required
 def resumen_pdf(request):
     selected_year = _selected_year(request)
+    if selected_year is None:
+        selected_year = "all"
     pdf = generar_pdf_resumen(
         generar_resumen(request),
         request.user.username,
         selected_year,
     )
     response = HttpResponse(pdf, content_type='application/pdf')
-    filename = f'Estadisticas de la coleccion de {request.user.username}.pdf'
+    filename = f'Estadisticas de la coleccion de {request.user.username} {selected_year}.pdf'
     response['Content-Disposition'] = content_disposition_header(
         as_attachment=True,
         filename=filename,
